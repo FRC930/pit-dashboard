@@ -21,6 +21,7 @@ export class TeamScheduleComponentComponent {
 
   matchScoreBackground(match: TBAMatch): string {
     if (!match.actual_time) return 'p-3 text-center text-2xl text-black';
+    if (match.winning_alliance === '') return 'bg-stone-400 p-3 text-center text-xl text-black';
     if (
       (match.alliances.blue.team_keys.includes(this.teamKey) && match.winning_alliance === 'blue') ||
       (match.alliances.red.team_keys.includes(this.teamKey) && match.winning_alliance === 'red')

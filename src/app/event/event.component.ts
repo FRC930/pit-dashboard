@@ -36,7 +36,7 @@ export class EventComponent implements OnInit {
       width: "100%",
       height: "100%",
       channel: this.webcastUrl(),
-      parent: ["www.justin-cooper.com"]
+      parent: ["main.d38ay2go4wu5n8.amplifyapp.com"]
     };
     const player = new (window as any).Twitch.Player("twitch-container", options);
     player.volume = 0;
