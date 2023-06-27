@@ -1,0 +1,28 @@
+<div
+  class="m-4 overflow-x-auto rounded border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800"
+>
+  <table class="min-w-full whitespace-nowrap align-middle">
+    <tbody>
+      <tr *ngFor="let match of matches" [class]="rowBackground(match)">
+        <td [class]="matchScoreBackground(match)">{{ matchNumber(match) }}</td>
+        <td class="p-3 text-xl text-red-500">
+          {{ allianceString(match.alliances.red.team_keys) }}
+        </td>
+        <td class="p-3 text-xl text-blue-500">
+          {{ allianceString(match.alliances.blue.team_keys) }}
+        </td>
+        <td class="p-3 text-2xl">
+          <div *ngIf="match.actual_time" class="flex flex-row">
+            <div class="pr-1 text-2xl text-red-500">
+              {{ match.alliances.red.score }}
+            </div>
+            -
+            <div class="pl-1 text-2xl text-blue-500">
+              {{ match.alliances.blue.score }}
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
