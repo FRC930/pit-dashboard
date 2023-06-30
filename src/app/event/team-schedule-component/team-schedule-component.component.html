@@ -12,7 +12,7 @@
           {{ allianceString(match.alliances.blue.team_keys) }}
         </td>
         <td class="p-3 text-2xl">
-          <div *ngIf="match.actual_time" class="flex flex-row">
+          <div *ngIf="match.winning_alliance !== ''" class="flex flex-row">
             <div class="pr-1 text-2xl text-red-500">
               {{ match.alliances.red.score }}
             </div>
