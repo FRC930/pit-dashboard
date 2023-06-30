@@ -23,8 +23,10 @@ export class EventComponent implements OnInit {
   public event: TBAEvent | null = null;
 
   constructor(private activatedRoute: ActivatedRoute) {
-    this.teamKey = activatedRoute.snapshot.queryParamMap.get('teamKey') || 'frc930';
-    this.eventKey = activatedRoute.snapshot.queryParamMap.get('eventKey') || '2023ilch';
+    this.teamKey =
+      activatedRoute.snapshot.queryParamMap.get('teamKey') || 'frc930';
+    this.eventKey =
+      activatedRoute.snapshot.queryParamMap.get('eventKey') || '2023ilch';
     this.tbaApi = new TBAProvider(
       'KRaTWas7TsHN2XyTQunY8XNciudd8uw4FTkFUAp6n2RLmUieqtQcyUzEukXtfADa'
     );
@@ -33,12 +35,15 @@ export class EventComponent implements OnInit {
   async ngOnInit() {
     await this.refreshData();
     const options = {
-      width: "100%",
-      height: "100%",
+      width: '100%',
+      height: '100%',
       channel: this.webcastUrl(),
-      parent: ["main.d38ay2go4wu5n8.amplifyapp.com"]
+      parent: ['main.d38ay2go4wu5n8.amplifyapp.com'],
     };
-    const player = new (window as any).Twitch.Player("twitch-container", options);
+    const player = new (window as any).Twitch.Player(
+      'twitch-container',
+      options
+    );
     player.volume = 0;
     player.pause();
     setInterval(this.refreshData.bind(this), 60000);
@@ -46,7 +51,7 @@ export class EventComponent implements OnInit {
 
   async refreshData() {
     this.upcomingMatches = (await this.tbaApi.matchesForEvent(this.eventKey))
-      .filter((m) => m.actual_time === null)
+      .filter((m) => m.winning_alliance === '')
       .sort(this.sortMatches)
       .slice(0, 5);
     this.ranking = await this.tbaApi.rankingForTeamAtEvent(
