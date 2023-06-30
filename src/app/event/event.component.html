@@ -9,7 +9,7 @@
     ></app-team-schedule-component>
   </div>
   <div class="min-h-screen grow">
-    <div id="twitch-container" class="h-3/5 w-full p-4"></div>
+    <div *ngIf="!noTwitch" id="twitch-container" class="h-3/5 w-full p-4"></div>
     <app-event-schedule-component
       [matches]="upcomingMatches"
     ></app-event-schedule-component>

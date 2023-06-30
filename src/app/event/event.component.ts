@@ -17,16 +17,19 @@ export class EventComponent implements OnInit {
   private eventKey = '2023ilch';
 
   public teamKey = 'frc930';
+  public noTwitch = false;
   public ranking: TBARanking | null = null;
   public matches: TBAMatch[] = [];
   public upcomingMatches: TBAMatch[] = [];
   public event: TBAEvent | null = null;
 
   constructor(private activatedRoute: ActivatedRoute) {
+    this.noTwitch = activatedRoute.snapshot.queryParamMap.has('noTwitch');
     this.teamKey =
       activatedRoute.snapshot.queryParamMap.get('teamKey') || 'frc930';
     this.eventKey =
       activatedRoute.snapshot.queryParamMap.get('eventKey') || '2023ilch';
+
     this.tbaApi = new TBAProvider(
       'KRaTWas7TsHN2XyTQunY8XNciudd8uw4FTkFUAp6n2RLmUieqtQcyUzEukXtfADa'
     );
@@ -52,8 +55,10 @@ export class EventComponent implements OnInit {
   async refreshData() {
     this.upcomingMatches = (await this.tbaApi.matchesForEvent(this.eventKey))
       .filter((m) => m.winning_alliance === '')
-      .sort(this.sortMatches)
-      .slice(0, 5);
+      .sort(this.sortMatches);
+
+    if (!this.noTwitch) this.upcomingMatches = this.upcomingMatches.slice(0, 5);
+
     this.ranking = await this.tbaApi.rankingForTeamAtEvent(
       this.teamKey,
       this.eventKey
