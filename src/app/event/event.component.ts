@@ -43,12 +43,14 @@ export class EventComponent implements OnInit {
       channel: this.webcastUrl(),
       parent: ['main.d38ay2go4wu5n8.amplifyapp.com'],
     };
-    const player = new (window as any).Twitch.Player(
-      'twitch-container',
-      options
-    );
-    player.volume = 0;
-    player.pause();
+    if (!this.noTwitch) {
+      const player = new (window as any).Twitch.Player(
+        'twitch-container',
+        options
+      );
+      player.volume = 0;
+      player.pause();
+    }
     setInterval(this.refreshData.bind(this), 60000);
   }
 
