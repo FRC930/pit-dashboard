@@ -17,6 +17,7 @@ import differenceInMinutes from 'date-fns/differenceInMinutes';
 })
 export class EventScheduleComponentComponent implements OnChanges {
   @Input() matches: TBAMatch[] = [];
+  @Input() matchDelay: number = 0;
   private delay = 0;
 
   ngOnChanges() {
