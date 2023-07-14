@@ -20,9 +20,10 @@ export class TeamScheduleComponentComponent {
   }
 
   matchScoreBackground(match: TBAMatch): string {
-    if (match.winning_alliance === '')
+    if (!match.actual_time && match.alliances.blue.score === -1)
       return 'p-3 text-center text-2xl text-black';
-    // if (match.winning_alliance === '') return 'bg-stone-400 p-3 text-center text-xl text-black';
+    if (match.winning_alliance === '')
+      return 'bg-stone-400 p-3 text-center text-xl text-black';
     if (
       (match.alliances.blue.team_keys.includes(this.teamKey) &&
         match.winning_alliance === 'blue') ||
@@ -34,13 +35,13 @@ export class TeamScheduleComponentComponent {
   }
 
   rowBackground(match: TBAMatch): string {
-    if (match.winning_alliance === '') {
+    if (!match.actual_time && match.alliances.blue.score === -1) {
       if (match.alliances.blue.team_keys.includes(this.teamKey)) {
-        return 'bg-blue-200';
+        return 'bg-blue-200 border border-blue-200';
       }
-      return 'bg-red-200';
+      return 'bg-red-200 border border-red-200';
     }
 
-    return 'even:bg-gray-50 dark:even:bg-gray-900/50';
+    return 'even:bg-gray-900/50 border border-gray-700';
   }
 }

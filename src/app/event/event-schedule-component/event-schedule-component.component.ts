@@ -16,6 +16,7 @@ import differenceInMinutes from 'date-fns/differenceInMinutes';
   styleUrls: ['./event-schedule-component.component.css'],
 })
 export class EventScheduleComponentComponent implements OnChanges {
+  @Input() lastMatches: TBAMatch[] = [];
   @Input() matches: TBAMatch[] = [];
   @Input() matchDelay: number = 0;
   private delay = 0;
@@ -45,7 +46,6 @@ export class EventScheduleComponentComponent implements OnChanges {
 
   timeToMatch(match: TBAMatch): string {
     if (match.predicted_time) {
-      console.log(this.delay);
       return formatDistance(
         new Date((match.predicted_time + this.delay * 60) * 1000),
         new Date(),

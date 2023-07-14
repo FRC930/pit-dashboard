@@ -23,6 +23,8 @@ export class EventComponent implements OnInit {
   public upcomingMatches: TBAMatch[] = [];
   public event: TBAEvent | null = null;
 
+  public lastMatches: TBAMatch[] = [];
+
   constructor(private activatedRoute: ActivatedRoute) {
     this.noTwitch = activatedRoute.snapshot.queryParamMap.has('noTwitch');
     this.teamKey =
@@ -55,9 +57,16 @@ export class EventComponent implements OnInit {
   }
 
   async refreshData() {
-    this.upcomingMatches = (await this.tbaApi.matchesForEvent(this.eventKey))
-      .filter((m) => m.winning_alliance === '')
+    const sliceIndex = this.noTwitch ? -3 : -1;
+    const matches = await this.tbaApi.matchesForEvent(this.eventKey);
+    this.upcomingMatches = matches
+      .filter((m) => !m.actual_time && m.alliances.blue.score === -1)
       .sort(this.sortMatches);
+
+    this.lastMatches = matches
+      .filter((m) => m.actual_time || m.alliances.blue.score >= 0)
+      .sort(this.sortMatches)
+      .slice(sliceIndex);
 
     if (!this.noTwitch) this.upcomingMatches = this.upcomingMatches.slice(0, 5);
 

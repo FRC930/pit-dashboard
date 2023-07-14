@@ -1,13 +1,41 @@
 <div
-  class="m-4 overflow-auto rounded border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800"
-  style="max-height: 98vh"
+  class="m-4 overflow-auto rounded border border-gray-700 bg-gray-800"
+  style="max-height: 92vh"
 >
   <table class="min-w-full whitespace-nowrap align-middle text-sm">
     <tbody>
-      <tr
-        *ngFor="let match of matches"
-        class="even:bg-gray-50 dark:even:bg-gray-900/50"
-      >
+      <tr *ngFor="let match of lastMatches" class="even:bg-gray-900/50">
+        <td class="p-3 text-start text-2xl text-white">
+          {{ matchNumber(match) }}
+        </td>
+        <td
+          class="p-3 text-center text-xl text-red-500"
+          *ngFor="let team of match.alliances.red.team_keys"
+        >
+          {{ team.replace("frc", "") }}
+        </td>
+        <td
+          class="p-3 text-center text-xl text-blue-500"
+          *ngFor="let team of match.alliances.blue.team_keys"
+        >
+          {{ team.replace("frc", "") }}
+        </td>
+        <td class="p-3 text-2xl">
+          <div
+            *ngIf="match.actual_time && match.alliances.blue.score !== -1"
+            class="flex flex-row justify-center"
+          >
+            <div class="pr-1 text-2xl text-red-500">
+              {{ match.alliances.red.score }}
+            </div>
+            -
+            <div class="pl-1 text-2xl text-blue-500">
+              {{ match.alliances.blue.score }}
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr *ngFor="let match of matches" class="even:bg-gray-900/50">
         <td class="p-3 text-start text-2xl text-white">
           {{ matchNumber(match) }}
         </td>
