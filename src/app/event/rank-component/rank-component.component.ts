@@ -7,7 +7,13 @@ import { TBARanking } from '@frc930/frc-data-lib';
   styleUrls: ['./rank-component.component.css'],
 })
 export class RankComponentComponent {
+  @Input() brianMode: boolean = false;
   @Input() ranking: TBARanking | null = null;
+
+  rank(): string {
+    if (this.brianMode) return 'LAST PLACE';
+    return `Rank ${this.ranking?.qual?.ranking?.rank ?? '0'}`;
+  }
 
   rankScore(): number {
     if (!this.ranking || !this.ranking.qual || !this.ranking.qual.ranking) {

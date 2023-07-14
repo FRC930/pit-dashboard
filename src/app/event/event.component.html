@@ -4,7 +4,10 @@
     style="height: 94vh"
   >
     <div class="h-screen w-1/3 overflow-hidden" style="height: 95vh">
-      <app-rank-component [ranking]="ranking"></app-rank-component>
+      <app-rank-component
+        [ranking]="ranking"
+        [brianMode]="brianMode"
+      ></app-rank-component>
       <app-team-schedule-component
         [teamKey]="teamKey"
         [matches]="matches"

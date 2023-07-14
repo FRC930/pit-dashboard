@@ -18,15 +18,16 @@ export class EventComponent implements OnInit {
 
   public teamKey = 'frc930';
   public noTwitch = false;
+  public brianMode = false;
   public ranking: TBARanking | null = null;
   public matches: TBAMatch[] = [];
   public upcomingMatches: TBAMatch[] = [];
   public event: TBAEvent | null = null;
-
   public lastMatches: TBAMatch[] = [];
 
   constructor(private activatedRoute: ActivatedRoute) {
     this.noTwitch = activatedRoute.snapshot.queryParamMap.has('noTwitch');
+    this.brianMode = activatedRoute.snapshot.queryParamMap.has('brianMode');
     this.teamKey =
       activatedRoute.snapshot.queryParamMap.get('teamKey') || 'frc930';
     this.eventKey =
